@@ -1,0 +1,44 @@
+nvfortran:
+  compiler: [gcc]
+  network:
+    mpi: cray-mpich@9.1.0 +cuda
+    specs:
+      - libfabric@2.4 +gdrcopy
+  unify: true
+  specs:
+  - cmake
+  - ninja
+  - libtool@2.4.6
+  - cuda@13.0 # Can't be newer than driver version, for DBCSR
+  - openblas threads=openmp
+  - netlib-scalapack
+  - fftw
+  - libxc ~cuda
+  - spglib
+  - spla
+  - elpa
+  # libint
+  - boost@1.90
+  - libint +fortran tune=cp2k-lmax-5
+  - eigen@3
+  # COSMA
+  - tiled-mm
+  - costa
+  - cosma +gpu_direct
+  # CP2K
+  - dbcsr@2.9.1
+  - cp2k@2026.2 +libxc +libint +spglib +cosma +spla +elpa lmax=5 build_system=cmake
+  variants:
+  - +mpi
+  - +openmp
+  - +cuda
+  - cuda_arch=90
+  - build_type=Release
+  views:
+    develop:
+      link: roots
+      exclude: ["cp2k"]
+      uenv:
+        add_compilers: true
+        prefix_paths:
+          LD_LIBRARY_PATH: [lib, lib64]
