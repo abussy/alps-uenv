@@ -7,4 +7,4 @@ spack:
     repo: https://github.com/spack/spack-packages.git
     commit: 1a32c3379c9fa28549c68b7931712d81831304df
 store: /user-environment
-description: cray-mpich with ROCm support using the system /opt/rocm-6.4.0 installation
+description: cray-mpich with ROCm support using the system /opt/rocm-6.3.0 installation
